@@ -2,6 +2,7 @@ package com.example.springmysql.controller;
 
 import com.example.springmysql.repository.EmployeeRepo;
 import com.example.springmysql.entity.Employee;
+import com.example.springmysql.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +12,43 @@ import java.util.List;
 @RequestMapping("/")
 public class EmployeeController {
 
-    private final EmployeeRepo employeeRepo;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepo employeeRepo) {
-        this.employeeRepo = employeeRepo;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
+
 
     @PostMapping("/add")
     public Employee saveEmployee(@RequestBody Employee employee){
-        return employeeRepo.save(employee);
+        return employeeService.saveEmployee(employee);
+    }
+    @PostMapping("/addEmployees")
+    public List<Employee> saveEmployees(@RequestBody List<Employee> employees){
+        return employeeService.saveEmployees(employees);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public List<Employee> getEmpolyee(){
-
-        return employeeRepo.findAll();
+        return employeeService.getAllEmployees();
+    }
+    @GetMapping("/{id}")
+    public Employee getEmpoyeeById(@PathVariable Long id){
+        return employeeService.getEmployeeById(id);
+    }
+    @GetMapping("employeeByname/{firstname}")
+    public Employee getEmployeeByFirstName(@PathVariable String firstname){
+        return employeeService.getEmployeeByfFirstName(firstname);
     }
 
+    @PutMapping("/update")
+    public Employee updateEmpolyee(@RequestBody Employee employee){
+        return employeeService.updateEmployeeById(employee);
+    }
 
-
-
+    @DeleteMapping("delete/{id}")
+    public String deleteEmployee(@PathVariable Long id){
+        return employeeService.deleteEmployeeById(id);
+    }
+//added
 }
