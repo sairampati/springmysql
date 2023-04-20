@@ -1,0 +1,7 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/spring-mysql?useSSL=false
+#    username: root
+#    password: Amma@1994
+#    hiberna
+#  spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
